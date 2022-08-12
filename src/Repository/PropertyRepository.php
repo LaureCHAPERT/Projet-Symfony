@@ -81,7 +81,7 @@ class PropertyRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
-    // To avoid repetitions of this querybuilder, we create a private function
+    // To avoid repetitions of this querybuilder, we create a common private function
     private function findVisibleQuery(): QueryBuilder
     {
         return $this->createQueryBuilder('p')

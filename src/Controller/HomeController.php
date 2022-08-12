@@ -9,7 +9,7 @@ use App\Repository\PropertyRepository;
 
 class HomeController extends AbstractController
 {
-
+  //HomePage Route
   /**
    * @Route("/", name="home")
    * @param PropertyRepository $repository

@@ -16,12 +16,14 @@ class PropertyController extends AbstractController
    */
   private $repository;
 
+  //We use __construct function in aim to re-use services 
   public function __construct(PropertyRepository $repository, ManagerRegistry $doctrine)
   {
     $this->repository = $repository;
     $this->doctrine = $doctrine;
   }
 
+  //All houses route
   /**
    * @Route("/biens", name="property.index")
    * @return Response;
@@ -35,6 +37,7 @@ class PropertyController extends AbstractController
     ]);
   }
 
+  //Detail of a house
   /**
    * @Route("/biens/{slug}-{id}", name="property.show", requirements={"slug":"[a-z0-9\-]*"})
    * @return Response
