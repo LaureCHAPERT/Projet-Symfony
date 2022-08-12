@@ -29,12 +29,6 @@ class PropertyController extends AbstractController
 
   public function index(): Response
   {
-    // Data recovery (Repository)
-    $property = $this->repository->findAllVisible();
-    $property[1]->setSold(true);
-    $entityManager = $this->doctrine->getManager();
-    $entityManager->flush();
-    dump($property);
 
     return $this->render('property/index.html.twig', [
       'current_menu' => 'properties'
