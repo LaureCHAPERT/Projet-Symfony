@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\PropertyRepository;
-use DateTime;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+
+
 
 /**
  * @ORM\Entity(repositoryClass=PropertyRepository::class)
@@ -89,7 +90,7 @@ class Property
 
     public function __construct()
     {
-        $this->created_at = new \DateTime();
+        $this->created_at = new \DateTimeImmutable();
     }
     public function getId(): ?int
     {
@@ -106,6 +107,11 @@ class Property
         $this->title = $title;
 
         return $this;
+    }
+    public function getSlug(): string
+    {
+        $slugify = new Slugify();
+        return $slugify->slugify($this->title);
     }
 
     public function getDescription(): ?string
