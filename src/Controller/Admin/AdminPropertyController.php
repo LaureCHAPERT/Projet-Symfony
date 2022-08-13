@@ -35,10 +35,33 @@ class AdminPropertyController extends AbstractController
     //Here, we use compact instead of an array to gain time
     return $this->render('admin/property/index.html.twig', compact('properties'));
   }
+  /**
+   * @Route("/admin/property/create", name="admin.property.new")
+   * @return Reponse;
+   */
+  public function new(Request $request)
+  {
+    $property = new Property();
+    $form = $this->createForm(PropertyType::class, $property);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $entityManager = $this->doctrine->getManager();
+      $entityManager->persist($property);
+      $entityManager->flush();
+      $this->addFlash('success', 'Bien ajouté avec succès');
+      return $this->redirectToRoute('admin.property.index');
+    }
+    return $this->render('admin/property/new.html.twig', [
+      'property' => $property,
+      'form' => $form->createView()
+    ]);
+  }
 
   /**
-   * @Route("/admin/{id}", name="admin.property.edit")
+   * @Route("/admin/property/{id}", name="admin.property.edit", methods="GET|POST")
    * @param Property $property
+   * @param Request $request
    * @return \Symfony\Component\HttpFoundation\Response;
    */
   public function edit(Property $property, Request $request)
@@ -49,11 +72,29 @@ class AdminPropertyController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $entityManager = $this->doctrine->getManager();
       $entityManager->flush();
+      $this->addFlash('success', 'Bien modifié avec succès');
       return $this->redirectToRoute('admin.property.index');
     }
     return $this->render('admin/property/edit.html.twig', [
       'property' => $property,
       'form' => $form->createView()
     ]);
+  }
+
+  /**
+   * @Route("/admin/property/{id}", name="admin.property.delete", methods="DELETE")
+   * @param Property $property
+   * @param Request $request
+   * @return \Symfony\Component\HttpFoundation\Response;
+   */
+  public function delete(Property $property, Request $request)
+  {
+    if ($this->isCsrfTokenValid('delete' . $property->getId(), $request->get('_token'))) {
+      $entityManager = $this->doctrine->getManager();
+      $entityManager->remove($property);
+      $entityManager->flush();
+      $this->addFlash('success', 'Bien supprimé avec succès');
+    }
+    return $this->redirectToRoute('admin.property.index');
   }
 }
