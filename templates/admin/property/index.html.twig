@@ -24,9 +24,9 @@
 							<form method="post" action="{{ path('admin.property.delete', {id: property.id })}}" style="display: inline-block">
 								<input type="hidden" name="_method" value="DELETE">
 								<input type="hidden" name="_token" value="{{csrf_token('delete' ~ property.id) }}" id="">
-
+								<button class="btn btn-danger">Supprimer</button>
 							</form>
-							<button class="btn btn-danger">Supprimer</button>
+
 						</td>
 					</tr>
 				{% endfor %}
