@@ -33,7 +33,8 @@ class PropertyController extends AbstractController
   {
 
     return $this->render('property/index.html.twig', [
-      'current_menu' => 'properties'
+      //we pass to navbar current menu a string to get the active menu on navbar
+      'current_menu' => 'active'
     ]);
   }
 
@@ -55,7 +56,7 @@ class PropertyController extends AbstractController
     }
     return $this->render('property/show.html.twig', [
       'property' => $property,
-      'current_menu' => 'properties'
+      'current_menu' => 'active'
     ]);
   }
 }
