@@ -23,9 +23,7 @@ class PropertyType extends AbstractType
             ->add('city')
             ->add('adress')
             ->add('postal_code')
-            ->add('sold')
-            ->add('created_at')
-        ;
+            ->add('sold');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
