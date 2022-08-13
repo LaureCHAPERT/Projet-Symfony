@@ -20,7 +20,9 @@ class PropertyType extends AbstractType
             ->add('floor')
             ->add('price')
             ->add('heat')
-            ->add('city')
+            ->add('city', null, [
+                'label' => 'Ville'
+            ])
             ->add('adress')
             ->add('postal_code')
             ->add('sold');
